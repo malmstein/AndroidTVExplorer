@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 'android-L'
+    compileSdkVersion 21
     buildToolsVersion "21.0.0"
 
     defaultConfig {
         applicationId "com.malmstein.androidtvexplorer"
-        minSdkVersion 'L'
-        targetSdkVersion 'L'
+        minSdkVersion 21
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
     }
@@ -22,8 +22,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:recyclerview-v7:21.0.0'
-    compile 'com.android.support:leanback-v17:21.0.0'
-    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:recyclerview-v7:21.0.+'
+    compile 'com.android.support:leanback-v17:21.0.+'
+    compile 'com.android.support:appcompat-v7:21.0.+'
     compile 'com.squareup.picasso:picasso:2.3.2'
 }

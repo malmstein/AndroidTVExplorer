@@ -19,6 +19,8 @@ package com.malmstein.androidtvexplorer.video;
 import android.content.Context;
 import android.util.Log;
 
+import com.malmstein.androidtvexplorer.R;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;

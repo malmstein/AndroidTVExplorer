@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.malmstein.androidtvexplorer.R;
 import com.malmstein.androidtvexplorer.video.Movie;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -80,8 +81,7 @@ public class CardPresenter extends Presenter {
             ((ViewHolder) viewHolder).mCardView.setTitleText(movie.getTitle());
             ((ViewHolder) viewHolder).mCardView.setContentText(movie.getStudio());
             ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
-            //((ViewHolder) viewHolder).mCardView.setBadgeImage(mContext.getResources().getDrawable(
-            //        R.drawable.videos_by_google_icon));
+//            ((ViewHolder) viewHolder).mCardView.setBadgeImage(mContext.getResources().getDrawable(R.drawable.videos_by_google_icon));
             ((ViewHolder) viewHolder).updateCardViewImage(movie.getCardImageURI());
         }
     }

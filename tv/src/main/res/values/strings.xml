@@ -2,7 +2,7 @@
 <resources>
 
   <string name="app_name">AndroidTVExplorer</string>
-  <string name="browse_title"><![CDATA[Your collection of videos]]></string>
+  <string name="browse_title"><![CDATA[My collection of videos]]></string>
   <string name="preferences">PREFERENCES</string>
   <string name="grid_view">Grid View</string>
   <string name="send_feeback">Send Feedback</string>

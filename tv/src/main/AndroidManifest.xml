@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".leanback.ExplorerActivity"
+            android:name="com.malmstein.androidtvexplorer.leanback.ExplorerActivity"
             android:label="@string/app_name"
             android:logo="@drawable/app_icon_quantum"
             android:screenOrientation="landscape" >

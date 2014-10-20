@@ -81,14 +81,10 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
     }
 
     private void setupUIElements() {
-//        setBadgeDrawable(getActivity().getResources().getDrawable(R.drawable.videos_by_google_banner));
-        setTitle(getString(R.string.browse_title)); // Badge, when set, takes precedent
+        setTitle(getString(R.string.browse_title));
         setHeadersState(HEADERS_ENABLED);
         setHeadersTransitionOnBackEnabled(true);
-
-        // set fastLane (or headers) background color
         setBrandColor(getResources().getColor(R.color.fastlane_background));
-        // set search icon color
         setSearchAffordanceColor(getResources().getColor(R.color.search_opaque));
     }
 
@@ -132,14 +128,6 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
         };
     }
 
-    protected void setDefaultBackground(Drawable background) {
-        mDefaultBackground = background;
-    }
-
-    protected void setDefaultBackground(int resourceId) {
-        mDefaultBackground = getResources().getDrawable(resourceId);
-    }
-
     protected void updateBackground(URI uri) {
         Picasso.with(getActivity())
                 .load(uri.toString())
@@ -147,14 +135,6 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
                 .centerCrop()
                 .error(mDefaultBackground)
                 .into(mBackgroundTarget);
-    }
-
-    protected void updateBackground(Drawable drawable) {
-        BackgroundManager.getInstance(getActivity()).setDrawable(drawable);
-    }
-
-    protected void clearBackground() {
-        BackgroundManager.getInstance(getActivity()).setDrawable(mDefaultBackground);
     }
 
     private void startBackgroundTimer() {
@@ -181,25 +161,14 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
         }
     }
 
-    /*
- * (non-Javadoc)
- * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onCreateLoader(int,
- * android.os.Bundle)
- */
     @Override
     public Loader<HashMap<String, List<Movie>>> onCreateLoader(int arg0, Bundle arg1) {
         Log.d(TAG, "VideoItemLoader created ");
         return new VideoItemLoader(getActivity(), mVideosUrl);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see android.support.v4.app.LoaderManager.LoaderCallbacks#onLoadFinished(android
-     * .support.v4.content.Loader, java.lang.Object)
-     */
     @Override
-    public void onLoadFinished(Loader<HashMap<String, List<Movie>>> arg0,
-                               HashMap<String, List<Movie>> data) {
+    public void onLoadFinished(Loader<HashMap<String, List<Movie>>> arg0, HashMap<String, List<Movie>> data) {
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         CardPresenter cardPresenter = new CardPresenter();
@@ -218,8 +187,7 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
             mRowsAdapter.add(new ListRow(header, listRowAdapter));
         }
 
-        HeaderItem gridHeader = new HeaderItem(i, getResources().getString(R.string.preferences),
-                null);
+        HeaderItem gridHeader = new HeaderItem(i, getResources().getString(R.string.preferences), null);
 
         GridItemPresenter gridPresenter = new GridItemPresenter();
         ArrayObjectAdapter gridRowAdapter = new ArrayObjectAdapter(gridPresenter);

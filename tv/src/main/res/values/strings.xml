@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string name="app_name">AndroidTVExplorer</string>
+  <string name="app_name">Android TV Explorer</string>
   <string name="browse_title"><![CDATA[My collection of videos]]></string>
   <string name="preferences">PREFERENCES</string>
   <string name="grid_view">Grid View</string>

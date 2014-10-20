@@ -6,7 +6,7 @@ A sample project which can be used as a base in order to develop Media Library a
 Follow the series of blogs starting at http://www.malmstein.com/blog/2014/10/18/introduction-to-development-for-android-tv/
 in order to keep up to date with the process
 
-![Demo gif](https://raw.githubusercontent.com/malmstein/androidtvexplorer/master/art/home.png)
+![Demo gif](https://raw.githubusercontent.com/malmstein/AndroidTVExplorer/master/art/home.png)
   
 License
 -------

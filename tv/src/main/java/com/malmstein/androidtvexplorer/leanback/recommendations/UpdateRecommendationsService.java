@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.malmstein.androidtvexplorer.R;
-import com.malmstein.androidtvexplorer.leanback.MovieActivity;
-import com.malmstein.androidtvexplorer.video.Movie;
+import com.malmstein.androidtvexplorer.leanback.VideoDetailsActivity;
+import com.malmstein.androidtvexplorer.video.Video;
 import com.malmstein.androidtvexplorer.video.VideoProvider;
 
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class UpdateRecommendationsService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.d(TAG, "Updating recommendation cards");
-        HashMap<String, List<Movie>> recommendations = VideoProvider.getMovieList();
+        HashMap<String, List<Video>> recommendations = VideoProvider.getMovieList();
 
         int count = 0;
 
@@ -37,18 +37,18 @@ public class UpdateRecommendationsService extends IntentService {
                     .setContext(getApplicationContext())
                     .setSmallIcon(R.drawable.videos_by_google_icon);
 
-            for (Map.Entry<String, List<Movie>> entry : recommendations.entrySet()) {
+            for (Map.Entry<String, List<Video>> entry : recommendations.entrySet()) {
                 for (int i = 0; i < entry.getValue().size(); i++) {
-                    Movie movie = entry.getValue().get(i);
-                    Log.d(TAG, "Recommendation - " + movie.getTitle());
+                    Video video = entry.getValue().get(i);
+                    Log.d(TAG, "Recommendation - " + video.getTitle());
 
-                    builder.setBackground(movie.getCardImageUrl())
+                    builder.setBackground(video.getCardImageUrl())
                             .setId(count + 1)
                             .setPriority(MAX_RECOMMENDATIONS - count)
-                            .setTitle(movie.getTitle())
+                            .setTitle(video.getTitle())
                             .setDescription(getString(R.string.popular_header))
-                            .setImage(movie.getCardImageUrl())
-                            .setIntent(buildPendingIntent(movie))
+                            .setImage(video.getCardImageUrl())
+                            .setIntent(buildPendingIntent(video))
                             .build();
 
                     if (++count >= MAX_RECOMMENDATIONS) {
@@ -64,16 +64,16 @@ public class UpdateRecommendationsService extends IntentService {
         }
     }
 
-    private PendingIntent buildPendingIntent(Movie movie) {
-        Intent detailsIntent = new Intent(this, MovieActivity.class);
-        detailsIntent.putExtra("Movie", movie);
+    private PendingIntent buildPendingIntent(Video video) {
+        Intent detailsIntent = new Intent(this, VideoDetailsActivity.class);
+        detailsIntent.putExtra("Movie", video);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(MovieActivity.class);
+        stackBuilder.addParentStack(VideoDetailsActivity.class);
         stackBuilder.addNextIntent(detailsIntent);
         // Ensure a unique PendingIntents, otherwise all recommendations end up with the same
         // PendingIntent
-        detailsIntent.setAction(Long.toString(movie.getId()));
+        detailsIntent.setAction(Long.toString(video.getId()));
 
         PendingIntent intent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         return intent;

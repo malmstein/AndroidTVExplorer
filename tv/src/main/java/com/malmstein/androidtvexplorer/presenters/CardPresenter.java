@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.malmstein.androidtvexplorer.R;
-import com.malmstein.androidtvexplorer.video.Movie;
+import com.malmstein.androidtvexplorer.video.Video;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -25,7 +25,7 @@ public class CardPresenter extends Presenter {
     private static int CARD_HEIGHT = 176;
 
     static class ViewHolder extends Presenter.ViewHolder {
-        private Movie mMovie;
+        private Video mVideo;
         private ImageCardView mCardView;
         private Drawable mDefaultCardImage;
         private PicassoImageCardViewTarget mImageCardViewTarget;
@@ -37,12 +37,12 @@ public class CardPresenter extends Presenter {
             mDefaultCardImage = mContext.getResources().getDrawable(R.drawable.movie);
         }
 
-        public void setMovie(Movie m) {
-            mMovie = m;
+        public void setMovie(Video m) {
+            mVideo = m;
         }
 
-        public Movie getMovie() {
-            return mMovie;
+        public Video getMovie() {
+            return mVideo;
         }
 
         public ImageCardView getCardView() {
@@ -73,15 +73,15 @@ public class CardPresenter extends Presenter {
 
     @Override
     public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object item) {
-        Movie movie = (Movie) item;
-        ((ViewHolder) viewHolder).setMovie(movie);
+        Video video = (Video) item;
+        ((ViewHolder) viewHolder).setMovie(video);
 
         Log.d(TAG, "onBindViewHolder");
-        if (movie.getCardImageUrl() != null) {
-            ((ViewHolder) viewHolder).mCardView.setTitleText(movie.getTitle());
-            ((ViewHolder) viewHolder).mCardView.setContentText(movie.getStudio());
+        if (video.getCardImageUrl() != null) {
+            ((ViewHolder) viewHolder).mCardView.setTitleText(video.getTitle());
+            ((ViewHolder) viewHolder).mCardView.setContentText(video.getStudio());
             ((ViewHolder) viewHolder).mCardView.setMainImageDimensions(CARD_WIDTH, CARD_HEIGHT);
-            ((ViewHolder) viewHolder).updateCardViewImage(movie.getCardImageURI());
+            ((ViewHolder) viewHolder).updateCardViewImage(video.getCardImageURI());
         }
     }
 

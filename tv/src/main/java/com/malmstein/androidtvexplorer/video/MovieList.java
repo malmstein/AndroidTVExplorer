@@ -13,10 +13,10 @@ public final class MovieList {
             "Category Five",
     };
 
-    public static List<Movie> list;
+    public static List<Video> list;
 
-    public static List<Movie> setupMovies() {
-        list = new ArrayList<Movie>();
+    public static List<Video> setupMovies() {
+        list = new ArrayList<Video>();
         String title[] = {
                 "Zeitgeist 2010_ Year in Review",
                 "Google Demo Slam_ 20ft Search",
@@ -68,19 +68,19 @@ public final class MovieList {
         return list;
     }
 
-    private static Movie buildMovieInfo(String category, String title,
+    private static Video buildMovieInfo(String category, String title,
             String description, String studio, String videoUrl, String cardImageUrl,
             String bgImageUrl) {
-        Movie movie = new Movie();
-        movie.setId(Movie.getCount());
-        Movie.incCount();
-        movie.setTitle(title);
-        movie.setDescription(description);
-        movie.setStudio(studio);
-        movie.setCategory(category);
-        movie.setCardImageUrl(cardImageUrl);
-        movie.setBackgroundImageUrl(bgImageUrl);
-        movie.setVideoUrl(videoUrl);
-        return movie;
+        Video video = new Video();
+        video.setId(Video.getCount());
+        Video.incCount();
+        video.setTitle(title);
+        video.setDescription(description);
+        video.setStudio(studio);
+        video.setCategory(category);
+        video.setCardImageUrl(cardImageUrl);
+        video.setBackgroundImageUrl(bgImageUrl);
+        video.setVideoUrl(videoUrl);
+        return video;
     }
 }

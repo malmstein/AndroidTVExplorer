@@ -51,7 +51,7 @@ public class VideoProvider {
     private static String TAG_BACKGROUND = "background";
     private static String TAG_TITLE = "title";
 
-    private static HashMap<String, List<Movie>> mMovieList;
+    private static HashMap<String, List<Video>> mMovieList;
     private static Context mContext;
     private static String mPrefixUrl;
 
@@ -93,16 +93,16 @@ public class VideoProvider {
         }
     }
 
-    public static HashMap<String, List<Movie>> getMovieList() {
+    public static HashMap<String, List<Video>> getMovieList() {
         return mMovieList;
     }
 
-    public static HashMap<String, List<Movie>> buildMedia(Context ctx, String url)
+    public static HashMap<String, List<Video>> buildMedia(Context ctx, String url)
             throws JSONException {
         if (null != mMovieList) {
             return mMovieList;
         }
-        mMovieList = new HashMap<String, List<Movie>>();
+        mMovieList = new HashMap<String, List<Video>>();
 
         JSONObject jsonObj = new VideoProvider().parseUrl(url);
         JSONArray categories = jsonObj.getJSONArray(TAG_GOOGLE_VIDEOS);
@@ -120,7 +120,7 @@ public class VideoProvider {
                 Log.d(TAG,
                         "category: " + i + " Name:" + category_name + " video length: "
                                 + videos.length());
-                List<Movie> categoryList = new ArrayList<Movie>();
+                List<Video> categoryList = new ArrayList<Video>();
                 if (null != videos) {
                     for (int j = 0; j < videos.length(); j++) {
                         JSONObject video = videos.getJSONObject(j);
@@ -147,21 +147,21 @@ public class VideoProvider {
         return mMovieList;
     }
 
-    private static Movie buildMovieInfo(String category, String title,
+    private static Video buildMovieInfo(String category, String title,
             String description, String studio, String videoUrl, String cardImageUrl,
             String bgImageUrl) {
-        Movie movie = new Movie();
-        movie.setId(Movie.getCount());
-        Movie.incCount();
-        movie.setTitle(title);
-        movie.setDescription(description);
-        movie.setStudio(studio);
-        movie.setCategory(category);
-        movie.setCardImageUrl(cardImageUrl);
-        movie.setBackgroundImageUrl(bgImageUrl);
-        movie.setVideoUrl(videoUrl);
+        Video video = new Video();
+        video.setId(Video.getCount());
+        Video.incCount();
+        video.setTitle(title);
+        video.setDescription(description);
+        video.setStudio(studio);
+        video.setCategory(category);
+        video.setCardImageUrl(cardImageUrl);
+        video.setBackgroundImageUrl(bgImageUrl);
+        video.setVideoUrl(videoUrl);
 
-        return movie;
+        return video;
     }
 
     private static String getVideoPrefix(String category, String videoUrl) {

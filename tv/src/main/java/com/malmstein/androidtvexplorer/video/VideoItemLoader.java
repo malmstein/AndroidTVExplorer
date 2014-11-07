@@ -26,7 +26,7 @@ import java.util.List;
 /*
  * This class asynchronously loads videos from a backend
  */
-public class VideoItemLoader extends AsyncTaskLoader<HashMap<String, List<Movie>>> {
+public class VideoItemLoader extends AsyncTaskLoader<HashMap<String, List<Video>>> {
 
     private static final String TAG = "VideoItemLoader";
     private final String mUrl;
@@ -39,7 +39,7 @@ public class VideoItemLoader extends AsyncTaskLoader<HashMap<String, List<Movie>
     }
 
     @Override
-    public HashMap<String, List<Movie>> loadInBackground() {
+    public HashMap<String, List<Video>> loadInBackground() {
         try {
             return VideoProvider.buildMedia(mContext, mUrl);
         } catch (Exception e) {

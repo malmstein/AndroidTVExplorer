@@ -24,6 +24,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.malmstein.androidtvexplorer.R;
+import com.malmstein.androidtvexplorer.presenters.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -114,7 +115,7 @@ public class RecommendationBuilder {
 
         Bitmap image = Picasso.with(mContext)
                 .load(mImageUri)
-                .resize(dpToPx(CARD_WIDTH, mContext), dpToPx(CARD_HEIGHT, mContext))
+                .resize(Utils.dpToPx(CARD_WIDTH, mContext), Utils.dpToPx(CARD_HEIGHT, mContext))
                 .get();
 
         Notification notification = new NotificationCompat.BigPictureStyle(
@@ -152,8 +153,4 @@ public class RecommendationBuilder {
                 '}';
     }
 
-    private static int dpToPx(int dp, Context ctx) {
-        float density = ctx.getResources().getDisplayMetrics().density;
-        return Math.round((float) dp * density);
-    }
 }

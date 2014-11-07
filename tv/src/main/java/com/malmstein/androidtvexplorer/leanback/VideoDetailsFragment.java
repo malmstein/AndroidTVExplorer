@@ -22,7 +22,6 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.malmstein.androidtvexplorer.R;
@@ -49,7 +48,7 @@ public class VideoDetailsFragment extends DetailsFragment {
 
     private static final int ACTION_WATCH_VIDEO = 1;
 
-    private Video selectedMovie;
+    private Video selectedVideo;
 
     private Drawable mDefaultBackground;
     private Target mBackgroundTarget;
@@ -59,6 +58,15 @@ public class VideoDetailsFragment extends DetailsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        prepareBackgroundManager();
+
+        loadVideoDetailsData();
+
+        setOnItemViewClickedListener(getDefaultItemClickedListener());
+        updateBackground(selectedVideo.getBackgroundImageURI());
+    }
+
+    private void prepareBackgroundManager() {
         BackgroundManager backgroundManager = BackgroundManager.getInstance(getActivity());
         backgroundManager.attach(getActivity().getWindow());
         mBackgroundTarget = new PicassoBackgroundManagerTarget(backgroundManager);
@@ -67,26 +75,24 @@ public class VideoDetailsFragment extends DetailsFragment {
 
         mMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(mMetrics);
+    }
 
-        selectedMovie = (Video) getActivity().getIntent().getSerializableExtra("Movie");
-        new DetailRowBuilderTask().execute(selectedMovie);
-
-        setOnItemViewClickedListener(getDefaultItemClickedListener());
-        updateBackground(selectedMovie.getBackgroundImageURI());
+    private void loadVideoDetailsData(){
+        selectedVideo = (Video) getActivity().getIntent().getSerializableExtra(getString(R.string.video));
+        new DetailRowBuilderTask().execute(selectedVideo);
     }
 
     private class DetailRowBuilderTask extends AsyncTask<Video, Integer, DetailsOverviewRow> {
         @Override
         protected DetailsOverviewRow doInBackground(Video... videos) {
-            selectedMovie = videos[0];
+            selectedVideo = videos[0];
 
-            Log.d(TAG, "doInBackground: " + selectedMovie.toString());
-            DetailsOverviewRow row = new DetailsOverviewRow(selectedMovie);
+            DetailsOverviewRow row = new DetailsOverviewRow(selectedVideo);
 
             Bitmap poster = null;
             try {
                 poster = Picasso.with(getActivity())
-                        .load(selectedMovie.getCardImageUrl())
+                        .load(selectedVideo.getCardImageUrl())
                         .resize(Utils.dpToPx(DETAIL_THUMB_WIDTH, getActivity()
                                         .getApplicationContext()),
                                 Utils.dpToPx(DETAIL_THUMB_HEIGHT, getActivity()
@@ -97,7 +103,6 @@ public class VideoDetailsFragment extends DetailsFragment {
                 e.printStackTrace();
             }
             row.setImageBitmap(getActivity(), poster);
-
             row.addAction(new Action(ACTION_WATCH_VIDEO, getResources().getString(
                     R.string.watch_video_1), getResources().getString(R.string.watch_video_2)));
 
@@ -106,10 +111,9 @@ public class VideoDetailsFragment extends DetailsFragment {
 
         @Override
         protected void onPostExecute(DetailsOverviewRow detailRow) {
-            ClassPresenterSelector ps = new ClassPresenterSelector();
-            DetailsOverviewRowPresenter dorPresenter =
-                    new DetailsOverviewRowPresenter(new VideoDetailsPresenter());
-            // set detail background and style
+
+            DetailsOverviewRowPresenter dorPresenter = new DetailsOverviewRowPresenter(new VideoDetailsPresenter());
+
             dorPresenter.setBackgroundColor(getResources().getColor(R.color.detail_background));
             dorPresenter.setStyleLarge(true);
             dorPresenter.setOnActionClickedListener(new OnActionClickedListener() {
@@ -117,7 +121,7 @@ public class VideoDetailsFragment extends DetailsFragment {
                 public void onActionClicked(Action action) {
                     if (action.getId() == ACTION_WATCH_VIDEO) {
                         Intent intent = new Intent(getActivity(), PlayerActivity.class);
-                        intent.putExtra(getResources().getString(R.string.video), selectedMovie);
+                        intent.putExtra(getResources().getString(R.string.video), selectedVideo);
                         startActivity(intent);
                     } else {
                         Toast.makeText(getActivity(), action.toString(), Toast.LENGTH_SHORT).show();
@@ -125,21 +129,19 @@ public class VideoDetailsFragment extends DetailsFragment {
                 }
             });
 
+            ClassPresenterSelector ps = new ClassPresenterSelector();
             ps.addClassPresenter(DetailsOverviewRow.class, dorPresenter);
-            ps.addClassPresenter(ListRow.class,
-                    new ListRowPresenter());
+            ps.addClassPresenter(ListRow.class, new ListRowPresenter());
 
             ArrayObjectAdapter adapter = new ArrayObjectAdapter(ps);
             adapter.add(detailRow);
 
-            String subcategories[] = {
-                    getString(R.string.related_movies)
-            };
+            String subcategories[] = {getString(R.string.related_movies)};
             HashMap<String, List<Video>> videos = VideoProvider.getMovieList();
 
             ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new CardPresenter());
             for (Map.Entry<String, List<Video>> entry : videos.entrySet()) {
-                if (selectedMovie.getCategory().indexOf(entry.getKey()) >= 0) {
+                if (selectedVideo.getCategory().indexOf(entry.getKey()) >= 0) {
                     List<Video> list = entry.getValue();
                     for (int j = 0; j < list.size(); j++) {
                         listRowAdapter.add(list.get(j));

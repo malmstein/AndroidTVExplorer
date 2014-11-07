@@ -41,7 +41,7 @@ public class CardPresenter extends Presenter {
             mVideo = m;
         }
 
-        public Video getMovie() {
+        public Video getVideo() {
             return mVideo;
         }
 

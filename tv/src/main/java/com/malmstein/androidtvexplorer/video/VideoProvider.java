@@ -97,7 +97,7 @@ public class VideoProvider {
         return mMovieList;
     }
 
-    public static HashMap<String, List<Video>> buildMedia(Context ctx, String url)
+    public static HashMap<String, List<Video>> buildMedia(String url)
             throws JSONException {
         if (null != mMovieList) {
             return mMovieList;
@@ -108,11 +108,11 @@ public class VideoProvider {
         JSONArray categories = jsonObj.getJSONArray(TAG_GOOGLE_VIDEOS);
         if (null != categories) {
             Log.d(TAG, "category #: " + categories.length());
-            String title = new String();
-            String videoUrl = new String();
-            String bgImageUrl = new String();
-            String cardImageUrl = new String();
-            String studio = new String();
+            String title;
+            String videoUrl;
+            String bgImageUrl;
+            String cardImageUrl;
+            String studio;
             for (int i = 0; i < categories.length(); i++) {
                 JSONObject category = categories.getJSONObject(i);
                 String category_name = category.getString(TAG_CATEGORY);

@@ -41,7 +41,7 @@ public class VideoItemLoader extends AsyncTaskLoader<HashMap<String, List<Video>
     @Override
     public HashMap<String, List<Video>> loadInBackground() {
         try {
-            return VideoProvider.buildMedia(mContext, mUrl);
+            return VideoProvider.buildMedia(mUrl);
         } catch (Exception e) {
             Log.e(TAG, "Failed to fetch media data", e);
             return null;
@@ -59,7 +59,6 @@ public class VideoItemLoader extends AsyncTaskLoader<HashMap<String, List<Video>
      */
     @Override
     protected void onStopLoading() {
-        // Attempt to cancel the current load task if possible.
         cancelLoad();
     }
 

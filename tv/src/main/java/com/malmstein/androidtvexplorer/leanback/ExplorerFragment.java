@@ -119,8 +119,9 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
             public void onItemClicked(Presenter.ViewHolder viewHolder, Object item, RowPresenter.ViewHolder viewHolder2, Row row) {
                 if (item instanceof Video) {
                     Video video = (Video) item;
-                    Intent intent = new Intent(getActivity(), PlayerActivity.class);
-                    intent.putExtra(getResources().getString(R.string.video), video);
+                    Intent videoIntent = new Intent(getActivity(), VideoDetailsActivity.class);
+                    videoIntent.putExtra(getResources().getString(R.string.video), video);
+                    startActivity(videoIntent);
                 } else if (item instanceof String) {
                     Toast.makeText(getActivity(), (String) item, Toast.LENGTH_SHORT)
                             .show();
@@ -164,7 +165,6 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
 
     @Override
     public Loader<HashMap<String, List<Video>>> onCreateLoader(int arg0, Bundle arg1) {
-        Log.d(TAG, "VideoItemLoader created ");
         return new VideoItemLoader(getActivity(), mVideosUrl);
     }
 

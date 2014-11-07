@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.malmstein.androidtvexplorer" >
+  package="com.malmstein.androidtvexplorer">
 
-    <application
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-        <activity
-            android:name="com.malmstein.androidtvexplorer.leanback.ExplorerActivity"
-            android:label="@string/app_name"
-            android:logo="@drawable/app_icon_quantum"
-            android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+  <application
+    android:allowBackup="true"
+    android:icon="@drawable/ic_launcher"
+    android:label="@string/app_name"
+    android:theme="@style/AppTheme">
+    <activity
+      android:name="com.malmstein.androidtvexplorer.leanback.ExplorerActivity"
+      android:label="@string/app_name"
+      android:logo="@drawable/app_icon_quantum"
+      android:screenOrientation="landscape">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+      </intent-filter>
+    </activity>
 
-      <receiver
-        android:name=".BootupActivity"
-        android:enabled="true"
-        android:exported="false">
-        <intent-filter>
-          <action android:name="android.intent.action.BOOT_COMPLETED" />
-        </intent-filter>
-      </receiver>
+    <activity
+      android:name="com.malmstein.androidtvexplorer.leanback.VideoDetailsActivity"
+      android:exported="true" />
 
-    </application>
+    <receiver
+      android:name="com.malmstein.androidtvexplorer.leanback.recommendations.RecommendationsReceiver"
+      android:enabled="true"
+      android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+  </application>
 
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
+  <uses-permission android:name="android.permission.INTERNET" />
+
+  <uses-feature
+    android:name="android.hardware.touchscreen"
+    android:required="false" />
 
 </manifest>

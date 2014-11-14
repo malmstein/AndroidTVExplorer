@@ -8,6 +8,15 @@
   <string name="send_feeback">Send Feedback</string>
   <string name="personal_settings">Personal Settings</string>
 
+  <string name="popular_header">Popular Videos</string>
+
+  <string name="related_videos">Related Videos</string>
+  <string name="video">Video</string>
+  <string name="watch_video_1">Watch video</string>
+  <string name="watch_video_2">NOW</string>
+
+  <string name="init_text">00:00</string>
+
   <string name="prefix_url">http://commondatastorage.googleapis.com/android-tv/Sample%20videos/</string>
   <string name="catalog_url">http://commondatastorage.googleapis.com/android-tv/android_tv_videos.json</string>
 

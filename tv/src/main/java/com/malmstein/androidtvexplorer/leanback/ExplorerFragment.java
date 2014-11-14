@@ -1,6 +1,7 @@
 package com.malmstein.androidtvexplorer.leanback;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ import com.malmstein.androidtvexplorer.R;
 import com.malmstein.androidtvexplorer.presenters.CardPresenter;
 import com.malmstein.androidtvexplorer.presenters.GridItemPresenter;
 import com.malmstein.androidtvexplorer.presenters.PicassoBackgroundManagerTarget;
-import com.malmstein.androidtvexplorer.video.Movie;
+import com.malmstein.androidtvexplorer.video.Video;
 import com.malmstein.androidtvexplorer.video.VideoItemLoader;
 import com.malmstein.androidtvexplorer.video.VideoProvider;
 import com.squareup.picasso.Picasso;
@@ -38,7 +39,7 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class ExplorerFragment extends BrowseFragment implements LoaderManager.LoaderCallbacks<HashMap<String, List<Movie>>> {
+public class ExplorerFragment extends BrowseFragment implements LoaderManager.LoaderCallbacks<HashMap<String, List<Video>>> {
 
     private static final String TAG = "ExplorerFragment";
     private ArrayObjectAdapter mRowsAdapter;
@@ -104,8 +105,8 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
         return new OnItemViewSelectedListener() {
             @Override
             public void onItemSelected(Presenter.ViewHolder viewHolder, Object item, RowPresenter.ViewHolder viewHolder2, Row row) {
-                if (item instanceof Movie) {
-                    mBackgroundURI = ((Movie) item).getBackgroundImageURI();
+                if (item instanceof Video) {
+                    mBackgroundURI = ((Video) item).getBackgroundImageURI();
                     startBackgroundTimer();
                 }
             }
@@ -116,10 +117,11 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
         return new OnItemViewClickedListener() {
             @Override
             public void onItemClicked(Presenter.ViewHolder viewHolder, Object item, RowPresenter.ViewHolder viewHolder2, Row row) {
-                if (item instanceof Movie) {
-                    Movie movie = (Movie) item;
-                    Log.d(TAG, "Item: " + item.toString());
-                    Toast.makeText(getActivity(), movie.getTitle(), Toast.LENGTH_LONG);
+                if (item instanceof Video) {
+                    Video video = (Video) item;
+                    Intent videoIntent = new Intent(getActivity(), VideoDetailsActivity.class);
+                    videoIntent.putExtra(getResources().getString(R.string.video), video);
+                    startActivity(videoIntent);
                 } else if (item instanceof String) {
                     Toast.makeText(getActivity(), (String) item, Toast.LENGTH_SHORT)
                             .show();
@@ -162,22 +164,21 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
     }
 
     @Override
-    public Loader<HashMap<String, List<Movie>>> onCreateLoader(int arg0, Bundle arg1) {
-        Log.d(TAG, "VideoItemLoader created ");
+    public Loader<HashMap<String, List<Video>>> onCreateLoader(int arg0, Bundle arg1) {
         return new VideoItemLoader(getActivity(), mVideosUrl);
     }
 
     @Override
-    public void onLoadFinished(Loader<HashMap<String, List<Movie>>> arg0, HashMap<String, List<Movie>> data) {
+    public void onLoadFinished(Loader<HashMap<String, List<Video>>> arg0, HashMap<String, List<Video>> data) {
 
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
         CardPresenter cardPresenter = new CardPresenter();
 
         int i = 0;
 
-        for (Map.Entry<String, List<Movie>> entry : data.entrySet()) {
+        for (Map.Entry<String, List<Video>> entry : data.entrySet()) {
             ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(cardPresenter);
-            List<Movie> list = entry.getValue();
+            List<Video> list = entry.getValue();
 
             for (int j = 0; j < list.size(); j++) {
                 listRowAdapter.add(list.get(j));
@@ -200,7 +201,7 @@ public class ExplorerFragment extends BrowseFragment implements LoaderManager.Lo
     }
 
     @Override
-    public void onLoaderReset(Loader<HashMap<String, List<Movie>>> arg0) {
+    public void onLoaderReset(Loader<HashMap<String, List<Video>>> arg0) {
         mRowsAdapter.clear();
     }
 

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-public class Movie implements Serializable {
+public class Video implements Serializable {
     static final long serialVersionUID = 727566175075960653L;
     private static long count = 0;
     private long id;
@@ -18,7 +18,7 @@ public class Movie implements Serializable {
     private String studio;
     private String category;
 
-    public Movie() {
+    public Video() {
     }
 
     public static long getCount() {

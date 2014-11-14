@@ -10,9 +10,9 @@
 
   <string name="popular_header">Popular Videos</string>
 
-  <string name="related_movies">Related Movies</string>
+  <string name="related_videos">Related Videos</string>
   <string name="video">Video</string>
-  <string name="watch_video_1">Watch movie</string>
+  <string name="watch_video_1">Watch video</string>
   <string name="watch_video_2">NOW</string>
 
   <string name="prefix_url">http://commondatastorage.googleapis.com/android-tv/Sample%20videos/</string>

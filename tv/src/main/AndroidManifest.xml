@@ -23,6 +23,10 @@
       android:name="com.malmstein.androidtvexplorer.leanback.VideoDetailsActivity"
       android:exported="true" />
 
+    <activity
+      android:name="com.malmstein.androidtvexplorer.leanback.PlayerActivity"
+      android:exported="true" />
+
     <receiver
       android:name="com.malmstein.androidtvexplorer.leanback.recommendations.RecommendationsReceiver"
       android:enabled="true"
@@ -31,6 +35,10 @@
         <action android:name="android.intent.action.BOOT_COMPLETED" />
       </intent-filter>
     </receiver>
+
+    <service
+      android:name="com.malmstein.androidtvexplorer.leanback.recommendations.UpdateRecommendationsService"
+      android:enabled="true" />
 
   </application>
 

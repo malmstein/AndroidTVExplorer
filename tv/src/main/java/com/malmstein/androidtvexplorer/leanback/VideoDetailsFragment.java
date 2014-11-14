@@ -136,7 +136,7 @@ public class VideoDetailsFragment extends DetailsFragment {
             ArrayObjectAdapter adapter = new ArrayObjectAdapter(ps);
             adapter.add(detailRow);
 
-            String subcategories[] = {getString(R.string.related_movies)};
+            String subcategories[] = {getString(R.string.related_videos)};
             HashMap<String, List<Video>> videos = VideoProvider.getMovieList();
 
             ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new CardPresenter());
